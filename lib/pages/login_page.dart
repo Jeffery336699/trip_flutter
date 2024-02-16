@@ -109,7 +109,9 @@ class _LoginPageState extends State<LoginPage> {
 
   _login(context) async {
     try {
-      var result = LoginDao.login(userName: userName!, password: password!);
+      //需要添加await等登录完成没有问题后在跳转到首页
+      var result =
+          await LoginDao.login(userName: userName!, password: password!);
       print('登录成功');
       NavigatorUtil.goToHome(context);
     } catch (e) {
