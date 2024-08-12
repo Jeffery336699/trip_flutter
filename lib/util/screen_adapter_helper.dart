@@ -16,6 +16,12 @@ extension DoubleFix on double {
   }
 }
 
+extension AA on ScreenHelper {
+  foo() {
+    print('print...');
+  }
+}
+
 ///屏幕适配工具类，如果UI要求要和UI稿完全一致的还原度时可以使用
 class ScreenHelper {
   static late MediaQueryData _mediaQueryData;
@@ -35,5 +41,9 @@ class ScreenHelper {
   ///获取设计稿对应的大小
   static double getPx(double size) {
     return ScreenHelper.ratio * size;
+  }
+
+  kk() {
+    foo();
   }
 }

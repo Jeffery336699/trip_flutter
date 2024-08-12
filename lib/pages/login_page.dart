@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //防止键盘弹起影响布局
       body: Stack(
+        /// ...展开一个数组
         children: [..._background(), _content()],
       ),
     );

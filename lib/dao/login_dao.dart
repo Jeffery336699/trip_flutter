@@ -22,7 +22,7 @@ class LoginDao {
     if (response.statusCode == 200) {
       var result = json.decode(bodyString);
       if (result['code'] == 0 && result['data'] != null) {
-        //保存登录令牌
+        //保存登录令牌到本地,这里采用老师封装好的sp
         _saveBoardingPass(result['data']);
       } else {
         throw Exception(bodyString);
