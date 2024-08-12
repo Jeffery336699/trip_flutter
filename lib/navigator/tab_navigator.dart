@@ -22,9 +22,10 @@ class _TabNavigatorState extends State<TabNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    //更新导航器的context，供退出登录时使用
+    //更新导航器的context，供退出登录时使用(todo 换成首页的context,因为首页常驻内存的)
     NavigatorUtil.updateContext(context);
     return Scaffold(
+      ///  PageView就相当于ViewPager
       body: PageView(
         controller: _controller,
         physics: const NeverScrollableScrollPhysics(),

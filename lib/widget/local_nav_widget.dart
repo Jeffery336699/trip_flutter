@@ -49,7 +49,9 @@ class LocalNavWidget extends StatelessWidget {
             width: 32,
             height: 32,
           ),
-          Text(model.title!, style: const TextStyle(fontSize: 12))
+          Text(model.title!,
+              style: const TextStyle(
+                  fontSize: 10, overflow: TextOverflow.ellipsis))
         ],
       ),
     );

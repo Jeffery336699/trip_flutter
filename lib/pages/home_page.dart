@@ -6,12 +6,8 @@ import 'package:trip_flutter/pages/search_page.dart';
 import 'package:trip_flutter/util/navigator_util.dart';
 import 'package:trip_flutter/util/view_util.dart';
 import 'package:trip_flutter/widget/banner_widget.dart';
-import 'package:trip_flutter/widget/grid_nav_widget.dart';
 import 'package:trip_flutter/widget/loading_container.dart';
-import 'package:trip_flutter/widget/local_nav_widget.dart';
-import 'package:trip_flutter/widget/sales_box_widget.dart';
 import 'package:trip_flutter/widget/search_bar_widget.dart';
-import 'package:trip_flutter/widget/sub_nav_widget.dart';
 
 const searchBarDefaultText = '网红打开地 景点 酒店 美食';
 
@@ -77,10 +73,10 @@ class _HomePageState extends State<HomePage>
   get _listView => ListView(
         children: [
           BannerWidget(bannerList: bannerList),
-          LocalNavWidget(localNavList: localNavList),
-          if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
-          SubNavWidget(suNavList: subNavList),
-          if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
+          // LocalNavWidget(localNavList: localNavList),
+          // if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
+          // SubNavWidget(suNavList: subNavList),
+          // if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
           _logoutBtn,
           const SizedBox(
             height: 800,
@@ -150,6 +146,7 @@ class _HomePageState extends State<HomePage>
 
   Future<void> _handleRefresh() async {
     try {
+      /// await有点等价于回调,它把后面的代码相当于一个闭包,在Future有结果时再执行
       HomeModel? model = await HomeDao.fetch();
       if (model == null) {
         setState(() {
