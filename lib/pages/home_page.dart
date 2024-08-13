@@ -11,6 +11,8 @@ import 'package:trip_flutter/widget/search_bar_widget.dart';
 
 import '../widget/grid_nav_widget.dart';
 import '../widget/local_nav_widget.dart';
+import '../widget/sales_box_widget.dart';
+import '../widget/sub_nav_widget.dart';
 
 const searchBarDefaultText = '网红打开地 景点 酒店 美食';
 
@@ -78,8 +80,8 @@ class _HomePageState extends State<HomePage>
           BannerWidget(bannerList: bannerList),
           LocalNavWidget(localNavList: localNavList),
           if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
-          // SubNavWidget(suNavList: subNavList),
-          // if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
+          SubNavWidget(suNavList: subNavList),
+          if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
           _logoutBtn,
           const SizedBox(
             height: 800,

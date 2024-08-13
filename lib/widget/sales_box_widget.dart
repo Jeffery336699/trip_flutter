@@ -25,10 +25,13 @@ class SalesBoxWidget extends StatelessWidget {
     items.add(_doubleItem(
         context, salesBox.smallCard1!, salesBox.smallCard2!, false, false));
     items.add(_doubleItem(
-        context, salesBox.smallCard3!, salesBox.smallCard4!, false, false));
+        context, salesBox.smallCard3!, salesBox.smallCard4!, false, true));
     return Column(
       children: [
         _titleItem(),
+
+        ///todo 外面再包裹一层Row/Column,如果再设置mainAxisAlignment会把里面的Row/Column里面的元素,
+        ///todo 再次按照此时的排列(表现形式为外层的优先级高)
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: items.sublist(0, 1),
@@ -41,6 +44,7 @@ class SalesBoxWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: items.sublist(2, 3),
         ),
+        // ...items
       ],
     );
   }

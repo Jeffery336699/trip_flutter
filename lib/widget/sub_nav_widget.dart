@@ -30,7 +30,7 @@ class SubNavWidget extends StatelessWidget {
     for (var model in suNavList!) {
       items.add(_item(context, model));
     }
-    //计算出第一行显示的数量
+    //计算出第一行显示的数量,(10/2+0.5).toInt() = 5
     int separate = (suNavList!.length / 2 + 0.5).toInt();
     return Column(
       children: [
@@ -50,6 +50,8 @@ class SubNavWidget extends StatelessWidget {
   }
 
   Widget _item(BuildContext context, CommonModel model) {
+    ///Expanded被置于哪里就是均分谁(此处是均分row),内部default flex=1,大家都是均分
+    // flex: model.title == 'WiFi电话卡' ? 2 : 1,
     return Expanded(
         child: GestureDetector(
       onTap: () {
@@ -70,7 +72,7 @@ class SubNavWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 3),
             child: Text(
               model.title!,
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 11),
             ),
           )
         ],
