@@ -117,7 +117,7 @@ class SearchItemWidget extends StatelessWidget {
     int preIndex = 0;
     for (int i = 0; i < arr.length; i++) {
       if (i != 0) {
-        //搜索关键字高亮忽略大小写
+        //搜索关键字高亮忽略大小写,todo 注意这里preIndex是由重新赋值的
         preIndex = wordL.indexOf(keywordL, preIndex);
         spans.add(TextSpan(
             text: word.substring(preIndex, preIndex + keyword.length),

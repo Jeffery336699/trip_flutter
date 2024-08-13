@@ -82,6 +82,8 @@ class _SearchPageState extends State<SearchPage> {
         setState(() {
           searchModel = result;
         });
+      } else {
+        print('不一致的情况: ${result.keyword} ,  $value');
       }
     } catch (e) {
       debugPrint(e.toString());

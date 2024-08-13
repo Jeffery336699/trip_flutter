@@ -176,7 +176,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           //输入框的文本样式
           decoration: InputDecoration(
               contentPadding:
-                  const EdgeInsets.only(left: 5, bottom: 12, right: 5),
+                  const EdgeInsets.only(left: 5, bottom: 11, right: 5),
               border: InputBorder.none,
               hintText: widget.hint,
               hintStyle: const TextStyle(fontSize: 15)),
@@ -217,6 +217,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         showClear = false;
       });
     }
+
+    ///给外部回调输入框的文本变化
     if (widget.onChanged != null) {
       widget.onChanged!(value);
     }

@@ -3,6 +3,7 @@ import 'package:trip_flutter/pages/home_page.dart';
 import 'package:trip_flutter/pages/my_page.dart';
 import 'package:trip_flutter/pages/search_page.dart';
 import 'package:trip_flutter/pages/travel_page.dart';
+import 'package:trip_flutter/util/view_util.dart';
 
 import '../util/navigator_util.dart';
 
@@ -36,24 +37,30 @@ class _TabNavigatorState extends State<TabNavigator> {
           MyPge()
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        //fixedColor设置底部文字的颜色
-        fixedColor: Colors.blue,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          _controller.jumpToPage(index);
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        items: [
-          _bottomItem('首页', Icons.home, 0),
-          _bottomItem('搜索', Icons.search, 1),
-          _bottomItem('旅拍', Icons.camera_alt, 2),
-          _bottomItem('我的', Icons.account_circle, 3),
-        ],
-      ),
+      bottomNavigationBar: shadowWarp(
+          child: Opacity(
+            opacity: 0.9,
+            child: BottomNavigationBar(
+              //fixedColor设置底部文字的颜色
+              fixedColor: Colors.blue,
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                _controller.jumpToPage(index);
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              type: BottomNavigationBarType.fixed,
+              items: [
+                _bottomItem('首页', Icons.home, 0),
+                _bottomItem('搜索', Icons.search, 1),
+                _bottomItem('旅拍', Icons.camera_alt, 2),
+                _bottomItem('我的', Icons.account_circle, 3),
+              ],
+            ),
+          ),
+          padding: const EdgeInsets.only(top: 1),
+          startColor: Colors.deepOrange),
     );
   }
 

@@ -14,7 +14,7 @@ import '../widget/local_nav_widget.dart';
 import '../widget/sales_box_widget.dart';
 import '../widget/sub_nav_widget.dart';
 
-const searchBarDefaultText = '网红打开地 景点 酒店 美食';
+const searchBarDefaultText = '网红打卡地 景点 酒店 美食';
 
 class HomePage extends StatefulWidget {
   static Config? configModel;
@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage>
           padding: EdgeInsets.only(top: top),
           height: 60 + top,
           decoration: BoxDecoration(
-              color:
-                  Color.fromARGB((appBarAlpha * 255).toInt(), 255, 255, 255)),
+              color: Color.fromARGB((appBarAlpha * 255).toInt(), 255, 255,
+                  255) /*Colors.pink.withOpacity(appBarAlpha)*/),
           child: SearchBarWidget(
             searchBarType: appBarAlpha > 0.2
                 ? SearchBarType.homeLight
