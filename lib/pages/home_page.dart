@@ -9,6 +9,9 @@ import 'package:trip_flutter/widget/banner_widget.dart';
 import 'package:trip_flutter/widget/loading_container.dart';
 import 'package:trip_flutter/widget/search_bar_widget.dart';
 
+import '../widget/grid_nav_widget.dart';
+import '../widget/local_nav_widget.dart';
+
 const searchBarDefaultText = '网红打开地 景点 酒店 美食';
 
 class HomePage extends StatefulWidget {
@@ -73,8 +76,8 @@ class _HomePageState extends State<HomePage>
   get _listView => ListView(
         children: [
           BannerWidget(bannerList: bannerList),
-          // LocalNavWidget(localNavList: localNavList),
-          // if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
+          LocalNavWidget(localNavList: localNavList),
+          if (gridNavModel != null) GridNavWidget(gridNavModel: gridNavModel!),
           // SubNavWidget(suNavList: subNavList),
           // if (salesBoxModel != null) SalesBoxWidget(salesBox: salesBoxModel!),
           _logoutBtn,
@@ -147,6 +150,7 @@ class _HomePageState extends State<HomePage>
   Future<void> _handleRefresh() async {
     try {
       /// await有点等价于回调,它把后面的代码相当于一个闭包,在Future有结果时再执行
+      /// (异步转同步的时候,会阻塞当前Future后面的代码,即await)
       HomeModel? model = await HomeDao.fetch();
       if (model == null) {
         setState(() {

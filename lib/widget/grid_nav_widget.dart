@@ -43,7 +43,7 @@ class GridNavWidget extends StatelessWidget {
     //左右排列的item
     List<Widget> expandItems = [];
     for (var item in items) {
-      //设置每个item评分间距
+      //设置每个item评分间距 todo 它被置于row中就是针对row来均分
       expandItems.add(Expanded(flex: 1, child: item));
     }
     Color startColor = Color(int.parse('0xff${gridNavItem.startColor!}'));
@@ -110,11 +110,16 @@ class GridNavWidget extends StatelessWidget {
 
   ///上下item,first 是否为第一个item
   _item(BuildContext context, CommonModel item, bool first) {
+    ///todo 这个边框属于自身的一部分,如果设置太大就能看出来,结合Expand组件就需要注意了
     BorderSide borderSide = const BorderSide(width: 0.8, color: Colors.white);
+    BorderSide halfBorderSide =
+        const BorderSide(width: 0.4, color: Colors.white);
     return Container(
       decoration: BoxDecoration(
           border: Border(
-              left: borderSide, bottom: first ? borderSide : BorderSide.none)),
+              left: borderSide,
+              bottom: first ? halfBorderSide : BorderSide.none,
+              top: first ? BorderSide.none : halfBorderSide)),
       child: _wrapGesture(
           context,
           Center(
