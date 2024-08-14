@@ -7,6 +7,7 @@ import 'package:trip_flutter/widget/travel_item_widget.dart';
 import '../model/travel_tab_model.dart';
 
 ///旅拍列表页
+///todo Flutter充分利用前端思想,不可变值放入StatefulWidget,可变值(状态)放入State中,并且State.widget可以获取到StatefulWidget
 class TravelTabPage extends StatefulWidget {
   final String groupChannelCode;
 
@@ -27,10 +28,10 @@ class _TravelTabPageState extends State<TravelTabPage>
       controller: _scrollController,
       crossAxisCount: 2,
       itemCount: travelItems.length,
-      itemBuilder: ((BuildContext context, int index) => TravelItemWidget(
+      itemBuilder: (BuildContext context, int index) => TravelItemWidget(
             index: index,
             item: travelItems[index],
-          )));
+          ));
 
   @override
   void initState() {
@@ -77,7 +78,7 @@ class _TravelTabPageState extends State<TravelTabPage>
           await TravelDao.getTravels(widget.groupChannelCode, pageIndex, 10);
       List<TravelItem> items = _filterItems(model?.list);
       if (loadMore && items.isEmpty) {
-        pageIndex--;
+        pageIndex--; //无数据:复原,小细节
       }
       setState(() {
         _loading = false;
@@ -92,7 +93,7 @@ class _TravelTabPageState extends State<TravelTabPage>
       debugPrint(e.toString());
       _loading = false;
       if (loadMore) {
-        pageIndex--;
+        pageIndex--; //fail:复原,小细节
       }
     }
   }

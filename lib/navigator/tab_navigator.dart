@@ -33,8 +33,8 @@ class _TabNavigatorState extends State<TabNavigator> {
         children: const [
           HomePage(),
           SearchPage(hideLeft: true),
-          TravelPge(),
-          MyPge()
+          TravelPage(),
+          MyPage()
         ],
       ),
       bottomNavigationBar: shadowWarp(

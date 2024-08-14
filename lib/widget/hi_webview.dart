@@ -56,7 +56,7 @@ class _HiWebViewState extends State<HiWebView> {
     }
     //处理Android物理返回键，返回H5的上一页 https://docs.flutter.dev/release/breaking-changes/android-predictive-back
     return PopScope(
-        canPop: false,
+        canPop: false, //禁用默认的返回键逻辑,H5页我自己来处理逻辑
         onPopInvoked: (bool didPop) async {
           if (await controller.canGoBack()) {
             //返回H5的上一页
@@ -94,6 +94,7 @@ class _HiWebViewState extends State<HiWebView> {
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
+            ///当内部要跳转时,进行一层拦截逻辑处理
             if (_isToMain(request.url)) {
               debugPrint('阻止跳转到 $request}');
               //返回到flutter页面
@@ -108,8 +109,14 @@ class _HiWebViewState extends State<HiWebView> {
 
   ///隐藏H5登录页的返回键
   void _handleBackForbid() {
+    ///todo 1、display:none 元素不再占用空间。 2、visibility: hidden 使元素在网页上不可见，但仍占用空间。
+
+    // const jsStr =
+    //     "var element = document.querySelector('.animationComponent.rn-view'); if(element!=null)element.style.display = 'none';";
+
     const jsStr =
-        "var element = document.querySelector('.animationComponent.rn-view'); element.style.display = 'none';";
+        "var element = document.querySelector('.animationComponent.rn-view'); if(element!=null)element.style.visibility = 'hidden';";
+
     if (widget.backForbid ?? false) {
       controller.runJavaScript(jsStr);
     }
@@ -117,6 +124,7 @@ class _HiWebViewState extends State<HiWebView> {
 
   ///判断H5是否返回主页
   bool _isToMain(String? url) {
+    print('_isToMain url:$url');
     bool contain = false;
     for (final value in _catchUrls) {
       if (url?.endsWith(value) ?? false) {
@@ -127,6 +135,8 @@ class _HiWebViewState extends State<HiWebView> {
     return contain;
   }
 
+  ///纯手动处理statusBar的颜色,因为根据安全距离可以直到statusBar的大小,并且默认是"内嵌"上去的
+  ///只要设置"内嵌"上去的这个区域的颜色就能间接的设置statusBar的颜色
   _appBar(Color backgroundColor, Color backButtonColor) {
     //获取刘海屏Top安全边距
     double top = MediaQuery.of(context).padding.top;
@@ -138,11 +148,15 @@ class _HiWebViewState extends State<HiWebView> {
     }
     return Container(
       color: backgroundColor,
-      padding: EdgeInsets.fromLTRB(0, top, 0, 10),
+      padding: EdgeInsets.fromLTRB(0, top, 0, 0),
       child: FractionallySizedBox(
         widthFactor: 1,
-        child: Stack(
-          children: [_backButton(backButtonColor), _title(backButtonColor)],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Stack(
+            alignment: Alignment.centerLeft,
+            children: [_backButton(backButtonColor), _title(backButtonColor)],
+          ),
         ),
       ),
     );
@@ -151,6 +165,7 @@ class _HiWebViewState extends State<HiWebView> {
   _backButton(Color backButtonColor) {
     return GestureDetector(
       onTap: () {
+        //这里的返回按钮×,直接返回到Flutter页面(不做H5记录中的逐级返回了)
         NavigatorUtil.pop(context);
       },
       child: Container(
@@ -165,14 +180,13 @@ class _HiWebViewState extends State<HiWebView> {
   }
 
   _title(Color backButtonColor) {
-    return Positioned(
-        left: 0,
-        right: 0,
-        child: Center(
-          child: Text(
-            widget.title ?? "",
-            style: TextStyle(color: backButtonColor, fontSize: 20),
-          ),
-        ));
+    ///采用Container可以更加灵活,让其child根据内容去撑开,想要有padding效果的话,外层在嵌套一层就ok
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        widget.title ?? "未知",
+        style: TextStyle(color: backButtonColor, fontSize: 16),
+      ),
+    );
   }
 }

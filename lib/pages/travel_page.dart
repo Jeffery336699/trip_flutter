@@ -6,14 +6,14 @@ import 'package:underline_indicator/underline_indicator.dart';
 import '../model/travel_category_model.dart';
 
 ///旅拍页面
-class TravelPge extends StatefulWidget {
-  const TravelPge({Key? key}) : super(key: key);
+class TravelPage extends StatefulWidget {
+  const TravelPage({Key? key}) : super(key: key);
 
   @override
-  State<TravelPge> createState() => _TravelPgeState();
+  State<TravelPage> createState() => _TravelPageState();
 }
 
-class _TravelPgeState extends State<TravelPge> with TickerProviderStateMixin {
+class _TravelPageState extends State<TravelPage> with TickerProviderStateMixin {
   List<TravelTab> tabs = [];
   TravelCategoryModel? travelTabModel;
   late TabController _controller;
@@ -27,10 +27,9 @@ class _TravelPgeState extends State<TravelPge> with TickerProviderStateMixin {
       indicatorSize: TabBarIndicatorSize.tab,
       labelColor: Colors.black,
       indicator: const UnderlineIndicator(
-        strokeCap: StrokeCap.round,
-        borderSide: BorderSide(color: Color(0xff2fcfbb), width: 3),
-        // insets: EdgeInsets.only(bottom: 0)
-      ),
+          strokeCap: StrokeCap.round,
+          borderSide: BorderSide(color: Color(0xff2fcfbb), width: 3),
+          insets: EdgeInsets.only(bottom: 0)),
       tabs: tabs.map<Tab>((TravelTab tab) {
         return Tab(text: tab.labelName);
       }).toList());
